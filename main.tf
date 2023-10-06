@@ -19,3 +19,12 @@ resource "aws_s3_bucket_public_access_block" "s3-website-bucket" {
   restrict_public_buckets = false
 }
 
+resource "aws_s3_bucket_acl" "s3-website-bucket" {
+  depends_on = [
+    aws_s3_bucket_ownership_controls.s3-website-bucket,
+    aws_s3_bucket_public_access_block.s3-website-bucket,
+  ]
+
+  bucket = aws_s3_bucket.s3-website-bucket.id
+  acl    = "public-read"
+}
