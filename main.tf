@@ -41,14 +41,12 @@ resource "aws_s3_object" "portfolio" {
   bucket = aws_s3_bucket.s3-website-bucket.id
   key          = each.key
   content_type = each.value.content_type
+  acl = "public-read"
 
   # The template_files module guarantees that only one of these two attributes
   # will be set for each file, depending on whether it is an in-memory template
   # rendering result or a static file on disk.
   source  = each.value.source_path
   content = each.value.content
-
-  # Unless the bucket has encryption enabled, the ETag of each object is an
-  # MD5 hash of that object.
  
 }
