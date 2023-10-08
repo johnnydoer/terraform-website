@@ -50,3 +50,15 @@ resource "aws_s3_object" "portfolio" {
   content = each.value.content
  
 }
+
+resource "aws_s3_bucket_website_configuration" "s3-website-bucket" {
+  bucket = aws_s3_bucket.s3-website-bucket.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "404.html"
+  }
+}
